@@ -113,6 +113,9 @@ libmongoc-dev                   [debian]
 # added as comments.
 #############################################################################
 
+# Our ivykis fork has uring support, let's use it in the devshell and the
+# packages we provide
+liburing-dev                    [debian, ubuntu-jammy, ubuntu-noble, devshell]
 
 #############################################################################
 # Tools required to run @kira-syslogng, our testbot.
@@ -166,3 +169,10 @@ snmptrapd                       [devshell]
 dwarves                         [devshell]
 jq                              [devshell]
 curl                            [devshell]
+
+#############################################################################
+# Functional tests in the devshell
+#############################################################################
+
+sqlite3                         [devshell]
+libdbd-sqlite3                  [devshell]

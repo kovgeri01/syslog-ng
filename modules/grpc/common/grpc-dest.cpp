@@ -97,6 +97,9 @@ DestDriver::init()
 
   log_threaded_dest_driver_register_aggregated_stats(&this->super->super);
 
+  if (this->batch_bytes > 0 && this->super->super.batch_lines <= 0)
+    this->super->super.batch_lines = G_MAXINT;
+
   StatsClusterKeyBuilder *kb = stats_cluster_key_builder_new();
   format_stats_key(kb);
   metrics.init(kb, log_pipe_is_internal(&super->super.super.super.super) ? STATS_LEVEL3 : STATS_LEVEL1);
@@ -266,7 +269,6 @@ grpc_dd_new(GlobalConfig *cfg, const gchar *stats_name)
   self->super.worker.construct = _construct_worker;
   self->super.stats_source = stats_register_type(stats_name);
   self->super.format_stats_key = _format_stats_key;
-  self->super.metrics.raw_bytes_enabled = TRUE;
 
   return self;
 }
